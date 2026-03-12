@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://xri.onl/XRi.js"></script>
+    
+    <style>
+        /* BASE LIGHT THEME */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #fcfcfc; 
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        nav {
+            background: #ffffff;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-weight: 800; font-size: 1.4rem; color: #d4a373; letter-spacing: 1px; }
+        .cart-status { 
+            background: #f1f1f1; 
+            padding: 8px 15px; 
+            border-radius: 50px; 
+            font-size: 0.9rem; 
+            font-weight: 600; 
+        }
+        #count { color: #d4a373; }
+
+        /* HERO */
+        .hero {
+            padding: 50px 20px;
+            text-align: center;
+            background: #f8f5f2;
+        }
+        .hero h1 { font-size: 2.5rem; color: #1a1a1a; margin-bottom: 10px; }
+        .hero p { color: #666; font-size: 1rem; max-width: 500px; margin: 0 auto; }
+
+        /* GRID */
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* CARD */
+        .card {
+            background: #ffffff;
+            border: 1px solid #eaeaea;
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        
+        /* IMAGE BOX */
+        .img-box {
+            height: 220px;
+            background: #fdfdfd;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .img-box img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+        .card:hover .img-box img {
+            transform: scale(1.08);
+        }
+
+        .card h3 { font-size: 1.3rem; margin-bottom: 5px; color: #1a1a1a; text-transform: uppercase; }
+        .description { font-size: 0.9rem; color: #777; margin-bottom: 15px; }
+        .price { font-size: 1.5rem; margin: 10px 0; font-weight: 700; color: #d4a373; }
+
+        /* BUTTONS */
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+        
+        .btn-cart {
+            background: #1a1a1a; color: #fff; border: none;
+            padding: 12px; border-radius: 10px; font-weight: 600;
+            font-size: 0.9rem; cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-cart:hover { background: #444; }
+        
+        .btn-xr {
+            background: #fff; color: #d4a373;
+            border: 1.5px solid #d4a373; padding: 10px;
+            border-radius: 10px; font-weight: 600; 
+            font-size: 0.85rem; cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-xr:hover { background: #d4a373; color: #fff; }
+
+        #xr-status {
+            position: fixed; bottom: 20px; left: 20px;
+            font-size: 0.8rem; background: #fff; border: 1px solid #ddd;
+            padding: 10px; border-radius: 8px; display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">BISTRO XR</div>
+        <div class="cart-status">ORDER: [<span id="count">0</span>]</div>
+    </nav>
+
+    <div class="hero">
+        <h1>Gourmet Experience</h1>
+        <p>Explore our menu in Augmented Reality before your meal.</p>
+    </div>
+
+    <div class="container">
+        <div class="product-grid">
+            
+            <div class="card">
+                <div class="img-box">
+                    <img src="https://simonevetere.github.io/XRi-menu-example/assets/img/burger.png" alt="Menu Item 1">
+                </div>
+                <h3>Starter One</h3>
+                <p class="description">A delicate combination of fresh ingredients and premium flavors.</p>
+                <div class="price">€ 18.00</div>
+                <div class="btn-group">
+                    <button class="btn-cart" onclick="updateCart()">ADD TO ORDER</button>
+                    <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/burger.glb')">VIEW IN AR / 3D</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-box">
+                    <img src="https://simonevetere.github.io/XRi-menu-example/assets/img/pasta.png" alt="Menu Item 2">
+                </div>
+                <h3>Main Dish</h3>
+                <p class="description">Our signature recipe served with seasonal vegetables.</p>
+                <div class="price">€ 24.50</div>
+                <div class="btn-group">
+                    <button class="btn-cart" onclick="updateCart()">ADD TO ORDER</button>
+                    <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/pasta.glb')">VIEW IN AR / 3D</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="img-box">
+                    <img src="https://simonevetere.github.io/XRi-menu-example/assets/img/dessert.png" alt="Menu Item 3">
+                </div>
+                <h3>Chef's Dessert</h3>
+                <p class="description">Sweet perfection to conclude your dining experience.</p>
+                <div class="price">€ 12.00</div>
+                <div class="btn-group">
+                    <button class="btn-cart" onclick="updateCart()">ADD TO ORDER</button>
+                    <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/dessert.glb')">VIEW IN AR / 3D</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="xr-status"></div>
+
+    <script>
+    async function launchXR(modelPath) {
+        if (typeof XRi !== 'undefined') {
+           XRi.spawn("dish_item", modelPath, 1.2, { x: 0, y: 0.8, z: 0.5 },{ x: 0, y: 180, z: 0 }, true);
+        }
+    };
+
+    function updateCart () {
+        let countEl = document.getElementById('count');
+        let current = parseInt(countEl.innerText);
+        countEl.innerText = current + 1;
+    };
+
+    if (typeof XRi !== 'undefined') {
+        XRi.initMultiplayer();
+        XRi.initWebXR();
+        XRi.clearAll();
+    }
+    </script>
+</body>
+</html>
