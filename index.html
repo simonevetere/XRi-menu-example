@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--- 1: XRI ADD LIBRARY--->
     <script src="https://xri.onl/XRi.js"></script>
     
     <style>
@@ -182,8 +183,21 @@
 
     <script>
     async function launchXR(modelPath) {
+        // Determina la dimensione reale in metri in base al nome del file
+        let dishSize = 0.1; // Dimensione di default (10 cm)
+        
+        if (modelPath.includes('burger')) {
+            dishSize = 0.15; // Burger: 15 cm
+        } else if (modelPath.includes('pasta')) {
+            dishSize = 0.25; // Piatto di pasta: 25 cm
+        } else if (modelPath.includes('dessert')) {
+            dishSize = 0.12; // Dessert: 12 cm
+        }
+
         if (typeof XRi !== 'undefined') {
-           XRi.spawn("dish_item", modelPath, 0.1, { x: 0, y: 0.8, z: 0.5 },{ x: 0, y: 180, z: 0 }, true);
+            // Spawns the 3D model with dynamic real-world scale based on the dish.
+            //2: XRI SPAWN
+            XRi.spawn("dish_item", modelPath, dishSize, { x: 0, y: 0.8, z: 0.5 }, { x: 0, y: 180, z: 0 }, true);
         }
     };
 
@@ -194,8 +208,11 @@
     };
 
     if (typeof XRi !== 'undefined') {
+        // Initializes multiplayer features for the XR session.
         XRi.initMultiplayer();
+        // Sets up the WebXR environment.
         XRi.initWebXR();
+        // Clears any previously loaded items from the scene.
         XRi.clearAll();
     }
     </script>
