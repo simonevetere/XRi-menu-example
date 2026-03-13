@@ -114,7 +114,7 @@
     <script>
     const spawnedItemsData = new Map();
     let lastSelectedId = null;
-
+    let plateisspwn = false;
     const ingredientsMenu = {
         'burger': "Brioche bun, 200g Angus beef, Cheddar, Crispy bacon, Secret sauce.",
         'pasta': "Handmade spaghetti, Piennolo tomatoes, Fresh basil, Creamy Burrata.",
@@ -122,6 +122,13 @@
     };
 
     async function launchXR(modelPath) {
+
+        if(XRi.isReady && !plateisspwn){
+            let plate_model = "https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/plate.glb"
+            const plate = XRi.spawn("plate", plate_model, 0.5, { x: 0, y: 0.8, z: 0.5 }, { x: 0, y: 180, z: 0 }, true);
+            plateisspwn = true;
+        }
+
         let dishType = 'default';
         let dishSize = 0.1;
         
@@ -183,11 +190,6 @@
         XRi.initMultiplayer();
         XRi.initWebXR();
         XRi.clearAll();
-
-        if(XRi.isReady){
-            let plate_model = "https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/plate.glb"
-            const plate = XRi.spawn("plate", plate_model, 0.5, { x: 0, y: 0.8, z: 0.5 }, { x: 0, y: 180, z: 0 }, true);
-        }
     }
     </script>
 </body>
