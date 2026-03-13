@@ -186,7 +186,7 @@
 
         if(XRi.isReady){
             let plate_model = "https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/plate.glb"
-            const plate = await XRi.spawn("plate", plate_model, 0.5, { x: 0, y: 0.8, z: 0.5 }, { x: 0, y: 180, z: 0 }, true);
+            const plate = XRi.spawn("plate", plate_model, 0.5, { x: 0, y: 0.8, z: 0.5 }, { x: 0, y: 180, z: 0 }, true);
         }
     }
     </script>
