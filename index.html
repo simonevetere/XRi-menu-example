@@ -3,122 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--- 1: XRI ADD LIBRARY--->
     <script src="https://xri.onl/XRi.js"></script>
     
     <style>
-        /* BASE LIGHT THEME */
+        /* ... existing styles ... */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #fcfcfc; 
-            color: #1a1a1a;
-            line-height: 1.6;
-        }
-
-        /* HEADER */
-        nav {
-            background: #ffffff;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; color: #1a1a1a; line-height: 1.6; }
+        nav { background: #ffffff; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
         .logo { font-weight: 800; font-size: 1.4rem; color: #d4a373; letter-spacing: 1px; }
-        .cart-status { 
-            background: #f1f1f1; 
-            padding: 8px 15px; 
-            border-radius: 50px; 
-            font-size: 0.9rem; 
-            font-weight: 600; 
-        }
+        .cart-status { background: #f1f1f1; padding: 8px 15px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; }
         #count { color: #d4a373; }
-
-        /* HERO */
-        .hero {
-            padding: 50px 20px;
-            text-align: center;
-            background: #f8f5f2;
-        }
-        .hero h1 { font-size: 2.5rem; color: #1a1a1a; margin-bottom: 10px; }
-        .hero p { color: #666; font-size: 1rem; max-width: 500px; margin: 0 auto; }
-
-        /* GRID */
+        .hero { padding: 50px 20px; text-align: center; background: #f8f5f2; }
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        /* CARD */
-        .card {
-            background: #ffffff;
-            border: 1px solid #eaeaea;
-            border-radius: 20px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            text-align: left;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-        
-        /* IMAGE BOX */
-        .img-box {
-            height: 220px;
-            background: #fdfdfd;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            overflow: hidden;
-        }
-        .img-box img {
-            width: 90%;
-            height: 90%;
-            object-fit: contain;
-            transition: transform 0.5s ease;
-        }
-        .card:hover .img-box img {
-            transform: scale(1.08);
-        }
-
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: #ffffff; border: 1px solid #eaeaea; border-radius: 20px; padding: 20px; transition: all 0.3s ease; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .img-box { height: 220px; background: #fdfdfd; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; overflow: hidden; }
+        .img-box img { width: 90%; height: 90%; object-fit: contain; transition: transform 0.5s ease; }
         .card h3 { font-size: 1.3rem; margin-bottom: 5px; color: #1a1a1a; text-transform: uppercase; }
         .description { font-size: 0.9rem; color: #777; margin-bottom: 15px; }
         .price { font-size: 1.5rem; margin: 10px 0; font-weight: 700; color: #d4a373; }
-
-        /* BUTTONS */
         .btn-group { display: flex; flex-direction: column; gap: 10px; }
-        
-        .btn-cart {
-            background: #1a1a1a; color: #fff; border: none;
-            padding: 12px; border-radius: 10px; font-weight: 600;
-            font-size: 0.9rem; cursor: pointer;
-            transition: background 0.2s;
-        }
-        .btn-cart:hover { background: #444; }
-        
-        .btn-xr {
-            background: #fff; color: #d4a373;
-            border: 1.5px solid #d4a373; padding: 10px;
-            border-radius: 10px; font-weight: 600; 
-            font-size: 0.85rem; cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-xr:hover { background: #d4a373; color: #fff; }
+        .btn-cart { background: #1a1a1a; color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; }
+        .btn-xr { background: #fff; color: #d4a373; border: 1.5px solid #d4a373; padding: 10px; border-radius: 10px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.3s; }
 
-        #xr-status {
-            position: fixed; bottom: 20px; left: 20px;
-            font-size: 0.8rem; background: #fff; border: 1px solid #ddd;
-            padding: 10px; border-radius: 8px; display: none;
+        /* NEW CUSTOM GRAPHIC MODAL */
+        #ingredient-modal {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            z-index: 2000;
+            padding: 30px;
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+        }
+        #ingredient-modal.active { bottom: 0; }
+        #ingredient-modal h2 { color: #d4a373; margin-bottom: 10px; text-transform: uppercase; }
+        #ingredient-modal p { color: #555; margin-bottom: 20px; font-style: italic; }
+        .modal-btns { display: flex; gap: 15px; justify-content: center; }
+        .btn-order { background: #d4a373; color: white; border: none; padding: 15px 30px; border-radius: 12px; font-weight: 700; cursor: pointer; flex: 1; }
+        .btn-close { background: #eee; border: none; padding: 15px; border-radius: 12px; cursor: pointer; }
+        
+        /* DARK OVERLAY */
+        #modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); z-index: 1999; display: none;
         }
     </style>
 </head>
@@ -131,88 +63,121 @@
 
     <div class="hero">
         <h1>Gourmet Experience</h1>
-        <p>Explore our menu in Augmented Reality before your meal.</p>
+        <p>Tap a dish in AR to view ingredients and order.</p>
     </div>
 
     <div class="container">
         <div class="product-grid">
-            
             <div class="card">
-                <div class="img-box">
-                    <img src="https://simonevetere.github.io/XRi-menu-example/assets/img/burger.png" alt="Menu Item 1">
-                </div>
+                <div class="img-box"><img src="https://simonevetere.github.io/XRi-menu-example/assets/img/burger.png"></div>
                 <h3>Starter One</h3>
-                <p class="description">A delicate combination of fresh ingredients and premium flavors.</p>
+                <p class="description">Premium Angus beef and melted cheddar.</p>
                 <div class="price">€ 18.00</div>
                 <div class="btn-group">
                     <button class="btn-cart" onclick="updateCart()">ADD TO ORDER</button>
                     <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/burger.glb')">VIEW IN AR / 3D</button>
                 </div>
             </div>
-
             <div class="card">
-                <div class="img-box">
-                    <img src="https://simonevetere.github.io/XRi-menu-example/assets/img/pasta.png" alt="Menu Item 2">
-                </div>
+                <div class="img-box"><img src="https://simonevetere.github.io/XRi-menu-example/assets/img/pasta.png"></div>
                 <h3>Main Dish</h3>
-                <p class="description">Our signature recipe served with seasonal vegetables.</p>
+                <p class="description">Homemade pasta with fresh cherry tomatoes.</p>
                 <div class="price">€ 24.50</div>
                 <div class="btn-group">
                     <button class="btn-cart" onclick="updateCart()">ADD TO ORDER</button>
                     <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/pasta.glb')">VIEW IN AR / 3D</button>
                 </div>
             </div>
-
             <div class="card">
-                <div class="img-box">
-                    <img src="https://simonevetere.github.io/XRi-menu-example/assets/img/dessert.png" alt="Menu Item 3">
-                </div>
+                <div class="img-box"><img src="https://simonevetere.github.io/XRi-menu-example/assets/img/dessert.png"></div>
                 <h3>Chef's Dessert</h3>
-                <p class="description">Sweet perfection to conclude your dining experience.</p>
+                <p class="description">Dark chocolate mousse with pistachio.</p>
                 <div class="price">€ 12.00</div>
                 <div class="btn-group">
                     <button class="btn-cart" onclick="updateCart()">ADD TO ORDER</button>
                     <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/dessert.glb')">VIEW IN AR / 3D</button>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <div id="xr-status"></div>
+    <div id="modal-overlay" onclick="closeModal()"></div>
+    <div id="ingredient-modal">
+        <h2 id="modal-title">Ingredients</h2>
+        <p id="modal-text"></p>
+        <div class="modal-btns">
+            <button class="btn-order" id="modal-order-btn">ORDER NOW</button>
+            <button class="btn-close" onclick="closeModal()">✕</button>
+        </div>
+    </div>
 
     <script>
+    const spawnedItemsData = new Map();
+    let lastSelectedId = null;
+
+    const ingredientsMenu = {
+        'burger': "Brioche bun, 200g Angus beef, Cheddar, Crispy bacon, Secret sauce.",
+        'pasta': "Handmade spaghetti, Piennolo tomatoes, Fresh basil, Creamy Burrata.",
+        'dessert': "70% Dark chocolate mousse, Toasted pistachios, Raspberry core."
+    };
+
     async function launchXR(modelPath) {
-        // Determina la dimensione reale in metri in base al nome del file
-        let dishSize = 0.1; // Dimensione di default (10 cm)
+        let dishType = 'default';
+        let dishSize = 0.1;
         
-        if (modelPath.includes('burger')) {
-            dishSize = 0.15; // Burger: 15 cm
-        } else if (modelPath.includes('pasta')) {
-            dishSize = 0.25; // Piatto di pasta: 25 cm
-        } else if (modelPath.includes('dessert')) {
-            dishSize = 0.12; // Dessert: 12 cm
-        }
+        if (modelPath.includes('burger')) { dishType = 'burger'; dishSize = 0.15; } 
+        else if (modelPath.includes('pasta')) { dishType = 'pasta'; dishSize = 0.25; } 
+        else if (modelPath.includes('dessert')) { dishType = 'dessert'; dishSize = 0.12; }
 
         if (typeof XRi !== 'undefined') {
-            // Spawns the 3D model with dynamic real-world scale based on the dish.
-            //2: XRI SPAWN
-            XRi.spawn("dish_item", modelPath, dishSize, { x: 0, y: 0.8, z: 0.5 }, { x: 0, y: 180, z: 0 }, true);
+            // UNIQUE ID PER SPAWN
+            const uniqueId = "dish_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+            spawnedItemsData.set(uniqueId, dishType);
+
+            const object = await XRi.spawn(uniqueId, modelPath, dishSize, { x: 0, y: 0.8, z: 0.5 }, { x: 0, y: 180, z: 0 }, true);
+            await object.setGrabbable(true);
         }
     };
 
-    function updateCart () {
+    // INTERCEPT 3D OBJECT CLICK
+    window.handleSelection = function(id) {
+        const dishType = spawnedItemsData.get(id);
+        if (dishType) {
+            lastSelectedId = id;
+            showModal(dishType);
+        }
+    };
+
+    function showModal(type) {
+        document.getElementById('modal-title').innerText = type.toUpperCase();
+        document.getElementById('modal-text').innerText = ingredientsMenu[type];
+        document.getElementById('modal-overlay').style.display = 'block';
+        document.getElementById('ingredient-modal').classList.add('active');
+        
+        // Setup order button within modal
+        document.getElementById('modal-order-btn').onclick = function() {
+            updateCart();
+            // 3D Visual feedback: Object "jumps"
+            XRi.getClassById(lastSelectedId).move({x:0, y:0.1, z:0}, 0.2).then(() => {
+                XRi.getClassById(lastSelectedId).move({x:0, y:-0.1, z:0}, 0.2);
+            });
+            closeModal();
+        };
+    }
+
+    function closeModal() {
+        document.getElementById('modal-overlay').style.display = 'none';
+        document.getElementById('ingredient-modal').classList.remove('active');
+    }
+
+    function updateCart() {
         let countEl = document.getElementById('count');
-        let current = parseInt(countEl.innerText);
-        countEl.innerText = current + 1;
+        countEl.innerText = parseInt(countEl.innerText) + 1;
     };
 
     if (typeof XRi !== 'undefined') {
-        // Initializes multiplayer features for the XR session.
         XRi.initMultiplayer();
-        // Sets up the WebXR environment.
         XRi.initWebXR();
-        // Clears any previously loaded items from the scene.
         XRi.clearAll();
     }
     </script>
