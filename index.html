@@ -130,12 +130,16 @@
         else if (modelPath.includes('dessert')) { dishType = 'dessert'; dishSize = 0.12; }
 
         if (typeof XRi !== 'undefined') {
-            // UNIQUE ID PER SPAWN
             const uniqueId = "dish_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
             spawnedItemsData.set(uniqueId, dishType);
 
-            const object = await XRi.spawn(uniqueId, modelPath, dishSize, { x: 0, y: 0.8, z: 0.5 }, { x: 0, y: 180, z: 0 }, true);
-            await object.setGrabbable(true);
+            const object = await XRi.spawn(uniqueId, modelPath, dishSize, { x: 0, y: 0.8, z: 0.5 });
+            
+            XRi.parent(uniqueId,"plate");
+            
+            object.move({x: 0, y: 0.05, z: 0}, 1.0);
+            
+            object.setGravity(true);
         }
     };
 
@@ -179,6 +183,11 @@
         XRi.initMultiplayer();
         XRi.initWebXR();
         XRi.clearAll();
+
+        if(XRi.isReady){
+            let plate_model = "https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/plate.glb"
+            const plate = await XRi.spawn("plate", plate_model, 0.5, { x: 0, y: 0.8, z: 0.5 }, { x: 0, y: 180, z: 0 }, true);
+        }
     }
     </script>
 </body>
