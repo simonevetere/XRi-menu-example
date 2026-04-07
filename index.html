@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <script src="https://xri.onl/XRi.js"></script>
     
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    
     <style>
-        /* ... existing styles ... */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; color: #1a1a1a; line-height: 1.6; }
         nav { background: #ffffff; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
@@ -18,7 +20,10 @@
         .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .card { background: #ffffff; border: 1px solid #eaeaea; border-radius: 20px; padding: 20px; transition: all 0.3s ease; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
         .img-box { height: 220px; background: #fdfdfd; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; overflow: hidden; }
-        .img-box img { width: 90%; height: 90%; object-fit: contain; transition: transform 0.5s ease; }
+        
+        /* Modificato: rimosso l'img e aggiunto lo stile per il model-viewer */
+        model-viewer { width: 100%; height: 100%; --poster-color: transparent; }
+        
         .card h3 { font-size: 1.3rem; margin-bottom: 5px; color: #1a1a1a; text-transform: uppercase; }
         .description { font-size: 0.9rem; color: #777; margin-bottom: 15px; }
         .price { font-size: 1.5rem; margin: 10px 0; font-weight: 700; color: #d4a373; }
@@ -63,41 +68,66 @@
 
     <div class="hero">
         <h1>Gourmet Experience</h1>
-        <p>Tap a dish in AR to view ingredients and order.</p>
+        <p>Esplora in 3D, tocca un piatto in AR per gli ingredienti e ordina.</p>
     </div>
 
     <div class="container">
         <div class="product-grid">
+            
             <div class="card">
-                <div class="img-box"><img src="https://simonevetere.github.io/XRi-menu-example/assets/img/burger.png"></div>
+                <div class="img-box">
+                    <model-viewer src="https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/burger.glb" 
+                                  auto-rotate 
+                                  camera-controls 
+                                  disable-zoom 
+                                  shadow-intensity="1">
+                    </model-viewer>
+                </div>
                 <h3>Starter One</h3>
                 <p class="description">Premium Angus beef and melted cheddar.</p>
                 <div class="price">€ 18.00</div>
                 <div class="btn-group">
                     <button class="btn-cart" onclick="updateCart()">ADD TO ORDER</button>
-                    <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/burger.glb')">VIEW IN AR / 3D</button>
+                    <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/burger.glb')">VIEW IN AR</button>
                 </div>
             </div>
+            
             <div class="card">
-                <div class="img-box"><img src="https://simonevetere.github.io/XRi-menu-example/assets/img/pasta.png"></div>
+                <div class="img-box">
+                    <model-viewer src="https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/pasta.glb" 
+                                  auto-rotate 
+                                  camera-controls 
+                                  disable-zoom 
+                                  shadow-intensity="1">
+                    </model-viewer>
+                </div>
                 <h3>Main Dish</h3>
                 <p class="description">Homemade pasta with fresh cherry tomatoes.</p>
                 <div class="price">€ 24.50</div>
                 <div class="btn-group">
                     <button class="btn-cart" onclick="updateCart()">ADD TO ORDER</button>
-                    <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/pasta.glb')">VIEW IN AR / 3D</button>
+                    <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/pasta.glb')">VIEW IN AR</button>
                 </div>
             </div>
+            
             <div class="card">
-                <div class="img-box"><img src="https://simonevetere.github.io/XRi-menu-example/assets/img/dessert.png"></div>
+                <div class="img-box">
+                    <model-viewer src="https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/dessert.glb" 
+                                  auto-rotate 
+                                  camera-controls 
+                                  disable-zoom 
+                                  shadow-intensity="1">
+                    </model-viewer>
+                </div>
                 <h3>Chef's Dessert</h3>
                 <p class="description">Dark chocolate mousse with pistachio.</p>
                 <div class="price">€ 12.00</div>
                 <div class="btn-group">
                     <button class="btn-cart" onclick="updateCart()">ADD TO ORDER</button>
-                    <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/dessert.glb')">VIEW IN AR / 3D</button>
+                    <button class="btn-xr" onclick="launchXR('https://raw.githubusercontent.com/simonevetere/XRi-menu-example/main/assets/3d/dessert.glb')">VIEW IN AR</button>
                 </div>
             </div>
+
         </div>
     </div>
 
